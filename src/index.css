@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  font-size: 2.2em;
+  font-weight: 100;
+  color: #555;
+  user-select: none;
+}
+
 /* html, body { height: 100%; }
 body {
   background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);

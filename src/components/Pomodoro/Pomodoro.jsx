@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import ProgressBar from "react-customizable-progressbar";
 
 const Pomodoro = () => {
-  const initialTime = 3000;
+  const initialTime = 10000;
   const [time, setTime] = useState(initialTime);
   const [running, setRunning] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [progress, setProgress] = useState(100);
   useEffect(() => {
     let interval;
 
@@ -17,6 +19,11 @@ const Pomodoro = () => {
     }
     return () => clearInterval(interval);
   }, [running]);
+
+  useEffect(() => {
+    !finished && setProgress(parseInt((time * 100) / initialTime));
+    finished && setProgress(0);
+  }, [time]);
 
   const getSeconds = (ms) => {
     return (ms / 1000) % 60;
@@ -35,30 +42,42 @@ const Pomodoro = () => {
   return (
     <div className="border-4 border-gray-500  p-4 md:p-12 rounded-2xl font-mono md:w-[80%] mx-auto flex flex-col gap-y-12">
       {/* Top */}
+
       <div className=" md:flex md:flex-row md:gap-x-10 justify-between mx-auto ">
         {/* Pomodoro clock */}
         <div className=" flex justify-center ">
-          <div className="border-4 px-4 border-double border-gray-500 rounded-xl  lg:w-96 h-72 flex flex-col gap-y-4 py-5 justify-center items-center">
+          <div className="border-4 px-4 border-double border-gray-500 rounded-xl  lg:w-96 flex flex-col gap-y-4 py-5 justify-center items-center">
             {/* Clock */}
-            <div className="flex flex-col justify-center text-2xl w-48 h-48 border-2 border-gray-500 rounded-full">
-              {!finished ? (
-                <div>
-                  <span>{("0" + getMinutes(time)).slice(-2)}:</span>
-                  <span>{("0" + getSeconds(time)).slice(-2)}</span>
-                </div>
-              ) : (
-                <div className="w-full">
-                  <p className="text-green-500 w-full text-sm p-2">
-                    Congratualations!
-                  </p>
-                </div>
-              )}
-            </div>
+
+            <ProgressBar
+              progress={progress}
+              radius={100}
+              trackStrokeWidth={10}
+              strokeWidth={15}
+              strokeColor={`${
+                progress > 40 ? "green" : progress > 20 ? "orange" : "red"
+              }`}
+            >
+              {/* indicator class is needed to set clock in progressbar  */}
+              <div className="indicator flex flex-col justify-center text-2xl  rounded-full">
+                {!finished ? (
+                  <div>
+                    <span>{("0" + getMinutes(time)).slice(-2)}:</span>
+                    <span>{("0" + getSeconds(time)).slice(-2)}</span>
+                  </div>
+                ) : (
+                  <div className="w-full">
+                    <p className="text-green-500 w-full text-sm p-2">
+                      Congratualations!
+                    </p>
+                  </div>
+                )}
+              </div>
+            </ProgressBar>
             {/* Btn */}
             {!finished ? (
               <button
                 className="border px-8 py-1.5 border-gray-500 rounded"
-                //   onClick={() => setRunning((prev) => !prev)}
                 onClick={() => setRunning((prev) => !prev)}
               >
                 {running ? "Pause" : "Start"}
@@ -68,6 +87,7 @@ const Pomodoro = () => {
                 className="border px-8 py-1.5 border-gray-500 rounded"
                 onClick={() => {
                   setFinished(false);
+                  setProgress(100);
                 }}
               >
                 Reset
