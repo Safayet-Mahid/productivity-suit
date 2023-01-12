@@ -1,7 +1,14 @@
 import "./App.css";
+import HomePage from "./pages/HomePage";
+import UserDashboardPage from "./pages/UserDashboardPage";
 
 function App() {
-  return <div className="App">hello world !!!</div>;
+  return (
+    <>
+      {/* <HomePage /> */}
+      <UserDashboardPage />
+    </>
+  );
 }
 
 export default App;
