@@ -1,12 +1,14 @@
 import "./App.css";
 import HomePage from "./pages/HomePage";
+import PomodoroPage from "./pages/PomodoroPage";
 import UserDashboardPage from "./pages/UserDashboardPage";
 
 function App() {
   return (
     <>
       {/* <HomePage /> */}
-      <UserDashboardPage />
+      {/* <UserDashboardPage /> */}
+      <PomodoroPage/>
     </>
   );
 }
