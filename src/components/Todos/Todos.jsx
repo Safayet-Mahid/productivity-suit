@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "./DatePicker";
+import Todo from "./Todo";
+import { format } from "date-fns";
+import DemoTodos from "./DemoTodos";
 
 const Todos = () => {
+  const [allTodos, setAllTodos] = useState([]);
+  const [todoInput, setTodoInput] = useState("");
+  const [date, setDate] = useState(new Date());
+
+  const formateDate = (date) => {
+    return format(date, "dd LLL , yyyy");
+  };
+
+  const handleAddTodo = (e) => {
+    if (todoInput) {
+      const todo = {
+        taskName: todoInput,
+        taskDate: formateDate(date),
+      };
+      setAllTodos((prev) => [...prev, todo]);
+      setTodoInput("");
+    }
+  };
+
+  const handleTodoInput = (e) => {
+    if (e.key == "Enter") {
+      handleAddTodo();
+    }
+  };
+
   return (
     <div className="text-sm font-mono space-y-10 flex flex-col justify-center items-center border border-gray-500 rounded-xl py-10">
       <div className="md:flex gap-x-28 mx-auto space-y-10">
@@ -15,50 +43,37 @@ const Todos = () => {
           <div className="space-x-2 border-2 rounded-md p-2 w-fit mx-auto border-gray-500 border-double">
             <input
               type="text"
-              name=""
-              id=""
               placeholder="add task.."
+              value={todoInput}
               className="border lg:w-64 px-2 py-1 border-gray-800 rounded-md"
+              onChange={(e) => setTodoInput(e.target.value)}
+              onKeyUp={(e) => handleTodoInput(e)}
             />
-            <button className="border px-2.5 py-1 border-gray-800 rounded-md">
+            <button
+              className="border px-2.5 py-1 border-gray-800 rounded-md"
+              onClick={(e) => handleAddTodo(e)}
+            >
               Add
             </button>
           </div>
           {/* Listed Todo Container */}
-          <div className="mx-auto w-fit ">
-            <p className="border px-4 py-1 mb-1 w-fit rounded border-gray-700 ml-auto">
-              08/01/23
-            </p>
-            {/* Todo's Container */}
-            <div className="border-2 p-3 rounded-lg border-gray-500 space-y-2">
-              {/* Single Todo */}
-              <div className="flex gap-x-2 w-full ">
-                <p className="text-start lg:w-64 w-44  border rounded px-3.5 py-1.5 border-gray-800">
-                  task 1...
-                </p>
-                <button className="border px-3 py-1.5  rounded border-gray-800">
-                  Done
-                </button>
+          {allTodos.length > 0 ? (
+            <div className="mx-auto w-fit ">
+              <p className="border px-4 py-1 mb-1 w-fit rounded border-gray-700 ml-auto">
+                {formateDate(date)}
+              </p>
+              {/* Todo's Container */}
+              <div className="border-2 p-3 rounded-lg border-gray-500 space-y-2">
+                {/* Single Todo */}
+                {allTodos.reverse().map((todo, index) => (
+                  <Todo key={index} task={todo} />
+                ))}
               </div>
-              <div className="flex gap-x-2">
-                <p className="text-start lg:w-64 w-44 border rounded px-3.5 py-1.5 border-gray-800">
-                  task 1...
-                </p>
-                <button className="border px-3 py-1.5 rounded border-gray-800">
-                  Done
-                </button>
-              </div>
-              <div className="flex gap-x-2">
-                <p className="text-start lg:w-64 w-44 border rounded px-3.5 py-1.5 border-gray-800">
-                  task 1...
-                </p>
-                <button className="border px-3 py-1.5 rounded border-gray-800">
-                  Done
-                </button>
-              </div>
+              <p className="mt-2">Todo's</p>
             </div>
-            <p className="mt-2">Todo's</p>
-          </div>
+          ) : (
+            <DemoTodos />
+          )}
         </div>
       </div>
 
