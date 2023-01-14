@@ -4,7 +4,7 @@ import DatePicker from "./DatePicker";
 const Todos = () => {
   return (
     <div className="text-sm font-mono space-y-10 flex flex-col justify-center items-center border border-gray-500 rounded-xl py-10">
-      <div className="md:flex gap-x-10 mx-auto space-y-10">
+      <div className="md:flex gap-x-28 mx-auto space-y-10">
         {/* Calendar */}
         <div className="">
           <DatePicker />

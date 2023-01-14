@@ -19,20 +19,15 @@
   user-select: none;
 }
 
-.react-calendar__tile--active {
-  background: rgba(119, 136, 153, 0.7);
-  border-radius: 6px;
-  color: white;
-}
+/* Todo's Page --- Calendar */
 .react-calendar {
   width: 350px;
   max-width: 100%;
-  /* background: white; */
   font-family: ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
   border: 3px solid transparent;
   border-radius: 10px;
   line-height: 1.125em;
-  padding: 15px 0px;
+  padding: 15px 5px;
   transition: all .2s;
   border-color: rgba(112, 128, 144, 0.423);
   box-shadow: 5px 5px 0 2px rgba(112, 128, 144, 0.423);
@@ -41,6 +36,18 @@
  border-color: slategrey;
  box-shadow: 5px 5px 0 2px rgb(112,128,144);
  
+}
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 5px;
+  background: none;
+  text-align: center;
+  line-height: 20px;
+}
+.react-calendar__tile--active {
+  background: rgba(119, 136, 153, 0.7);
+  border-radius: 6px;
+  color: white;
 }
 .react-calendar__month-view__days__day--weekend {
   font-weight: bolder;
