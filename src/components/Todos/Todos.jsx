@@ -3,6 +3,7 @@ import DatePicker from "./DatePicker";
 import Todo from "./Todo";
 import { format } from "date-fns";
 import DemoTodos from "./DemoTodos";
+import { v4 as uuidv4 } from "uuid";
 
 const Todos = () => {
   const [allTodos, setAllTodos] = useState([]);
@@ -18,6 +19,7 @@ const Todos = () => {
       const todo = {
         taskName: todoInput,
         taskDate: formateDate(date),
+        id: uuidv4(),
       };
       setAllTodos((prev) => [...prev, todo]);
       setTodoInput("");
@@ -30,12 +32,16 @@ const Todos = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    setAllTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   return (
     <div className="text-sm font-mono space-y-10 flex flex-col justify-center items-center border border-gray-500 rounded-xl py-10">
-      <div className="md:flex gap-x-28 mx-auto space-y-10">
+      <div className="md:flex gap-x-14 mx-auto space-y-10">
         {/* Calendar */}
         <div className="">
-          <DatePicker />
+          <DatePicker setDate={setDate} />
         </div>
         {/* Todos */}
         <div className=" space-y-10 self-center">
@@ -65,8 +71,8 @@ const Todos = () => {
               {/* Todo's Container */}
               <div className="border-2 p-3 rounded-lg border-gray-500 space-y-2">
                 {/* Single Todo */}
-                {allTodos.reverse().map((todo, index) => (
-                  <Todo key={index} task={todo} />
+                {allTodos.map((todo, index) => (
+                  <Todo key={index} task={todo} handleDelete={handleDelete} />
                 ))}
               </div>
               <p className="mt-2">Todo's</p>
@@ -78,18 +84,27 @@ const Todos = () => {
       </div>
 
       {/* Weekly Todos */}
-      <div className="space-y-2">
-        <div className="border-2 rounded-xl  p-4 mx-auto border-gray-500 flex gap-x-2 w-5/6 md:w-fit  ">
-          <div className="border w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+      <div className="space-y-2 w-screen md:w-fit p-4 ">
+        <div className="border-2 rounded-xl  p-4 px-3 mx-auto border-gray-500 flex gap-x-2 w-5/6 sm:w-fit overflow-x-scroll sm:overflow-hidden  ">
+          <div className="border px-2  w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
             14/01
           </div>
-          <div className="border w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+          <div className="border px-2 w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
             14/01
           </div>
-          <div className="border w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+          <div className="border px-2 w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
             14/01
           </div>
-          <div className="border w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+          <div className="border px-2 w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+            14/01
+          </div>
+          <div className="border px-2 w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+            14/01
+          </div>
+          <div className="border px-2 w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
+            14/01
+          </div>
+          <div className="border px-2 w-16 h-16 flex justify-center items-center rounded-lg border-gray-600">
             14/01
           </div>
         </div>
