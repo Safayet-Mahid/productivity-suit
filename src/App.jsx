@@ -1,5 +1,6 @@
 import "./App.css";
 import HomePage from "./pages/HomePage";
+import NotesPage from "./pages/NotesPage";
 import PomodoroPage from "./pages/PomodoroPage";
 import TodosPage from "./pages/TodosPage";
 import UserDashboardPage from "./pages/UserDashboardPage";
@@ -10,7 +11,8 @@ function App() {
       {/* <HomePage /> */}
       {/* <UserDashboardPage /> */}
       {/* <PomodoroPage/> */}
-      <TodosPage/>
+      {/* <TodosPage/> */}
+      <NotesPage/>
     </div>
   );
 }
