@@ -1,4 +1,6 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import AllNotes from "./components/Notes/AllNotes";
 import HomePage from "./pages/HomePage";
 import NotesPage from "./pages/NotesPage";
 import PomodoroPage from "./pages/PomodoroPage";
@@ -12,7 +14,15 @@ function App() {
       {/* <UserDashboardPage /> */}
       {/* <PomodoroPage/> */}
       {/* <TodosPage/> */}
-      <NotesPage/>
+
+      <Routes>
+        {/* <Route path={"/"} element={<UserDashboardPage />} /> */}
+        <Route path={"/create-note"} element={<NotesPage />} />
+        <Route path={"/notes"} element={<AllNotes/>} />
+        <Route path={"/dashboard"} element={<UserDashboardPage />} />
+        <Route path={"/pomodoro"} element={<PomodoroPage />} />
+        <Route path={"/todos"} element={<TodosPage />} />
+      </Routes>
     </div>
   );
 }
